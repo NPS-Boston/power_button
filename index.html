@@ -1,0 +1,63 @@
+<html><head>
+<link rel="manifest" href="manifest.json">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+
+<link rel="apple-touch-icon" sizes="76x76" href="icons/iOS-76.png">
+<link rel="apple-touch-icon" sizes="120x120" href="icons/iOS-iPhone6-120.png">
+<link rel="apple-touch-icon" sizes="152x152" href="icons/iOS-iPad-152.png">
+<link rel="apple-touch-icon" sizes="167x167" href="icons/iOS-iPadPro-167.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/iOS-iPhone6p-180.png">
+<title>Power and Reset Button</title>
+<style>
+body {
+	height:100%;
+	width:100%;
+	text-align:center;
+}
+.button {
+	display:inline-block;
+	margin:16px;
+	padding:16px;
+	border:1px solid black;
+	box-shadow:2px 2px 2px 5px black;
+	height:250px;
+	width:200px;
+}
+.button img {
+height:250px;
+}
+#response {
+	width:89%;
+	border:1px solid black;
+	padding:5%;
+}
+</style>
+<script>
+function push(btn) {
+	document.getElementById("power").disabled = true;
+	document.getElementById("reset").disabled = true;
+	document.getElementById("response").insertAdjacentHTML( 'afterbegin', "<h4>Pushing " + btn + " button. 10 second timeout for any further commands.</h4>" );
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		document.getElementById("response").insertAdjacentHTML( 'afterbegin', xhttp.responseText );
+		if (this.readyState == 4 && this.status == 200)
+		{
+			setTimeout(function(){
+				document.getElementById("response").insertAdjacentHTML( 'afterbegin', "<h4>" + btn + " pushed successfully.</h4>" );
+				document.getElementById("power").disabled = false;
+				document.getElementById("reset").disabled = false;
+			},10000);
+		}
+	};
+	xhttp.open("GET", '/' + btn, true);
+	xhttp.send();
+}
+</script>
+<body>
+<span class="button" id="power" onclick="push('power')"><img src="icons/power-icon.png"></span>
+<span class="button" id="reset" onclick="push('reset')"><img src="icons/reset-icon.png"></span>
+<div id="response"></div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "power_button",
+  "version": "1.0.0",
+  "main": "init.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express.js": "^1.0.0",
+    "onoff": "^1.1.9"
+  },
+  "devDependencies": {},
+  "description": ""
+}
